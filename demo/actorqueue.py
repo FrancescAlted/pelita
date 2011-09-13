@@ -5,21 +5,7 @@ Process = mp.Thread
 
 import time
 
-from Queue import Queue
-
 from pelita.messaging import Actor, actor_of, Request, DispatchingActor, expose
-
-class Runner(Process):
-    def __init__(self, queue, server):
-        super(Runner,self).__init__()
-        self.queue = queue
-        self.server = server
-    def run(self):
-        while True:
-            ans = self.queue.get()
-            if ans == 'stop':
-                break
-            self.server.put(ans*2)
 
 class ActorRunner(Actor):
     def on_receive(self, message):
